@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../static/assets/phone.png" type="image/x-icon">
+	<title>Trang chu</title>
+	<div th:replace="~{library/css}"></div>
+</head>
+
+<body>
+	<div class="form-check form-switch ms-auto mt-3 me-3" id="formSwitch">
+		<label class="form-check-label ms-3" for="inputSwicher">
+			<i class="fas fa-sun light-mode"></i>
+			<i class="fas fa-moon dark-mode d-none"></i>
+		</label>
+		<input class="form-check-input" type="checkbox" id="inputSwicher" />
+	</div>
+	<span id="top"></span>
+	<a class="scroll-up" href="#top"><i class="fas fa-chevron-up"></i></a>
+	<!-- start #header -->
+	<!-- !start #header -->
+	<div th:replace="~{fragments/header :: header}"></div>
+	<!-- start #main-site  -->
+	<main id="main-site">
+		<section class="hero mt-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="hero__categories">
+							<div class="hero__categories__all">
+								<i class="fa fa-bars"></i>
+								<span>Category</span>
+							</div>
+							<ul>
+								<li><a href="#">Apple</a></li>
+								<li><a href="#">Samsung</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-9">
+						<div class="hero__search">
+							<div class="hero__search__form">
+								<form action="#">
+									<div class="hero__search__categories">
+										All Categories
+										<span class="arrow_carrot-down"></span>
+									</div>
+									<input type="text" placeholder="Search">
+									<button type="submit" class="site-btn">SEARCH</button>
+								</form>
+							</div>
+						</div>
+						<div th:replace="banner :: banner"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Hero Section End -->
+		<!--		banner
+		<div th:replace="~{banner::banner}"></div>
+		end banner -->
+		<!-- Top Sale -->
+		<section id="top-sale">
+			<div class="container py-5">
+				<h4 class="font-size-20">Top Sale</h4>
+				<hr>
+				<!-- owl carousel -->
+				<div class="owl-carousel owl-theme">
+					<div class="item py-2 border rounded-3 bg-light" style="margin-right:10px;">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/	assets/products/1.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Samsung Galaxy 10</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$153123</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light" style="margin-right:10px;">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/2.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Readme Note 7</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light" style="margin-right:10px;">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/3.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Readme Note 7</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light" style="margin-right:10px;">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/6.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Samsung Galaxy 10</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light" style="margin-right:10px;">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/1.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Readme Note 7</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light" style="margin-right:10px;">
+						<div class="product">
+							<div class="d-flex flex-column">
+								<a href="product.html"><img th:src="@{/assets/products/15.png}" class="img-fluid"
+										alt="pro1"></a>
+								<div class="text-center">
+									<h6>Readme Note 7</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$122</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light" style="margin-right:10px;">
+						<div class="product">
+							<div class="d-flex flex-column">
+								<a href="product.html"><img th:src="@{/assets/products/2.png}" class="img-fluid"
+										alt="pro1"></a>
+								<div class="text-center">
+									<h6>Readme Note 7</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$122</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- !owl carousel -->
+			</div>
+		</section>
+		<!-- !Top Sale -->
+		<!-- Special Price -->
+		<section id="special-price">
+			<div class="container">
+				<h4 class="font-size-20">Special Price</h4>
+				<div id="filters" class="button-group text-end  font-size-16">
+					<button class="btn is-checked" data-filter="*">All Brand</button>
+					<button class="btn" data-filter=".Apple">Apple</button>
+					<button class="btn" data-filter=".Samsung">Samsung</button>
+					<button class="btn" data-filter=".Redmi">Redmi</button>
+				</div>
+				<div class="product-filter">
+					<div class="product-filter-item Apple border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<a href="product.html"><img th:src="@{/assets/products/13.png}" alt="product1"
+										class="img-fluid"></a>
+								<div class="text-center">
+									<h6>Apple iPhone 10</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$15d2</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Samsung border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<a href="product.html"><img th:src="@{/assets/products/11.png}" alt="product1"
+										class="img-fluid"></a>
+								<div class="text-center">
+									<h6>Samsung Galaxy 10</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$152</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Redmi border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<a href="product.html"><img th:src="@{/assets/products/3.png}" alt="product1"
+										class="img-fluid"></a>
+								<div class="text-center">
+									<h6>Redmi Note 7 Pro</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$152</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Apple border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<a href="product.html"><img th:src="@{/assets/products/4.png}" alt="product1"
+										class="img-fluid"></a>
+								<div class="text-center">
+									<h6>Apple iPhone 10</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$152</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Samsung border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<a href="product.html"><img th:src="@{/assets/products/12.png}" alt="product1"
+										class="img-fluid"></a>
+								<div class="text-center">
+									<h6>Samsung Galaxy 10</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$152</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Redmi border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<div class="d-flex flex-column">
+									<a href="product.html"><img th:src="@{/assets/products/4.png}" class="img-fluid"
+											alt="pro1"></a>
+									<div class="text-center">
+										<h6>Redmi Note 7 Pro</h6>
+										<div class="rating text-warning font-size-12">
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="far fa-star"></i></span>
+										</div>
+										<div class="price py-2">
+											<span>$152</span>
+										</div>
+										<button type="submit" class="btn btn-warning font-size-12">Add to
+											Cart</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Redmi border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<div class="d-flex flex-column">
+									<a href="product.html"><img th:src="@{/assets/products/5.png}" class="img-fluid"
+											alt="pro1"></a>
+									<div class="text-center">
+										<h6>Redmi Note 7 Pro</h6>
+										<div class="rating text-warning font-size-12">
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="far fa-star"></i></span>
+										</div>
+										<div class="price py-2">
+											<span>$152</span>
+										</div>
+										<button type="submit" class="btn btn-warning font-size-12">Add to
+											Cart</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Redmi border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<div class="d-flex flex-column">
+									<a href="product.html"><img th:src="@{/assets/products/6.png}" class="img-fluid"
+											alt="pro1"></a>
+									<div class="text-center">
+										<h6>Redmi Note 7 Pro</h6>
+										<div class="rating text-warning font-size-12">
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="far fa-star"></i></span>
+										</div>
+										<div class="price py-2">
+											<span>$152</span>
+										</div>
+										<button type="submit" class="btn btn-warning font-size-12">Add to
+											Cart</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Redmi border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<div class="d-flex flex-column">
+									<a href="product.html"><img th:src="@{/assets/products/10.png}" class="img-fluid"
+											alt="pro1"></a>
+									<div class="text-center">
+										<h6>Redmi Note 7 Pro</h6>
+										<div class="rating text-warning font-size-12">
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="far fa-star"></i></span>
+										</div>
+										<div class="price py-2">
+											<span>$152</span>
+										</div>
+										<button type="submit" class="btn btn-warning font-size-12">Add to
+											Cart</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="product-filter-item Apple border">
+						<div class="item py-2" style="width: 200px;">
+							<div class="product">
+								<div class="d-flex flex-column">
+									<a href="product.html"><img th:src="@{/assets/products/13.png}" class="img-fluid"
+											alt="pro1"></a>
+									<div class="text-center">
+										<h6>Apple iPhone 10</h6>
+										<div class="rating text-warning font-size-12">
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="fas fa-star"></i></span>
+											<span><i class="far fa-star"></i></span>
+										</div>
+										<div class="price py-2">
+											<span>$252</span>
+										</div>
+										<button type="submit" class="btn btn-warning font-size-12">Add to
+											Cart</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- !Special Price -->
+		<!-- Banner Ads    -->
+		<section id="banner_adds">
+			<div class="container py-5 text-center">
+				<img th:src="@{/assets/discount.jpg}" alt="banner1" class="img-fluid px-3 py-2">
+				<img th:src="@{/assets/freeship.jpg}" alt="banner1" class="img-fluid px-3 py-2">
+			</div>
+		</section>
+		<!-- !Banner Ads    -->
+		<!-- New Phones -->
+		<section id="new-phones">
+			<div class="container">
+				<h4 class="font-size-20">New Phones</h4>
+				<hr>
+				<!-- owl carousel -->
+				<div class="owl-carousel owl-theme">
+					<div class="item py-2 border rounded-2 bg-light">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/1.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Samsung Galaxy 10</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/2.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Readme Note 7</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/9.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Readme Note 7</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/6.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Samsung Galaxy 10</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light">
+						<div class="product">
+							<a href="product.html"><img th:src="@{/assets/products/7.png}" alt="product1"
+									class="img-fluid"></a>
+							<div class="text-center">
+								<h6>Readme Note 7</h6>
+								<div class="rating text-warning font-size-12">
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="fas fa-star"></i></span>
+									<span><i class="far fa-star"></i></span>
+								</div>
+								<div class="price py-2">
+									<span>$152</span>
+								</div>
+								<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light">
+						<div class="product">
+							<div class="d-flex flex-column">
+								<a href="product.html"><img th:src="@{/assets/products/10.png}" class="img-fluid"
+										alt="pro1"></a>
+								<div class="text-center">
+									<h6>Readme Note 7</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$122</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="item py-2 border rounded-2 bg-light">
+						<div class="product">
+							<div class="d-flex flex-column">
+								<a href="product.html"><img th:src="@{/assets/products/8.png}" class="img-fluid"
+										alt="pro1"></a>
+								<div class="text-center">
+									<h6>Readme Note 7</h6>
+									<div class="rating text-warning font-size-12">
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="fas fa-star"></i></span>
+										<span><i class="far fa-star"></i></span>
+									</div>
+									<div class="price py-2">
+										<span>$122</span>
+									</div>
+									<button type="submit" class="btn btn-warning font-size-12">Add to Cart</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- !owl carousel -->
+			</div>
+		</section>
+		<!-- !New Phones -->
+		<!-- Blogs -->
+		<div th:replace="~{blogs::blogs}"></div>
+		<!-- !Blogs -->
+	</main>
+	<!-- !start #main-site -->
+	<!-- start #footer -->
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<!-- !start #footer -->
+
+	<!-- js -->
+	<div th:replace="~{library/js}"></div>
+
+</body>
+
+</html>
