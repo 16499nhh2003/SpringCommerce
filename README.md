@@ -1,2 +1,1 @@
-# SpringCommerce
-midterm-project-java-spring
+# project-final-java

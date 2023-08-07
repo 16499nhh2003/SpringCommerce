@@ -18,7 +18,7 @@ public class Cart{
     private Long id;
 
     @ManyToOne
-    private User user;
+    private AppUser user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();

@@ -2,32 +2,26 @@ package com.project.spring.api;
 
 import com.project.spring.dto.CartDTO;
 import com.project.spring.dto.CartItemDTO;
-import com.project.spring.dto.ProductDTO;
 import com.project.spring.dto.ResponseObject;
 import com.project.spring.exceptions.UserNotFoundException;
 import com.project.spring.model.Cart;
 import com.project.spring.model.CartItem;
 import com.project.spring.model.Product;
-import com.project.spring.model.User;
+import com.project.spring.model.AppUser;
 import com.project.spring.repositories.CartRepository;
 import com.project.spring.repositories.ProductRepository;
 import com.project.spring.repositories.UserRepository;
 import com.project.spring.service.CartService;
 import com.project.spring.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/carts")
@@ -67,7 +61,7 @@ public class CartAPI {
     ResponseEntity<ResponseObject> getCartByUser(@PathVariable("idUser") String idUserString){
     	try {
     		Long idUser = Long.parseLong(idUserString);
-        	User user = this.userRepository.findById(idUser).orElse( null);
+        	AppUser user = this.userRepository.findById(idUser).orElse( null);
         	if(user == null) {
         		throw new UserNotFoundException(idUser);
         	}
@@ -122,7 +116,7 @@ public class CartAPI {
         /* Get cart */
         Cart cart = this.cartRepository.findById(idCart).orElse(new Cart());
         /*Get User*/
-        User user = cart.getUser();
+        AppUser user = cart.getUser();
         if (user == null) {
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("0", "Fail.No found user!", this.cartService.getCartDTOById(idCart)));
         }

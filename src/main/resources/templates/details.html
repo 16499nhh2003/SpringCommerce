@@ -29,7 +29,69 @@
 </head>
 
 <body>
-
+<!-- Topbar Start -->
+<div class="container-fluid">
+    <div class="row bg-secondary py-2 px-xl-5">
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="d-inline-flex align-items-center">
+                <a class="text-dark" href="">FAQs</a>
+                <span class="text-muted px-2">|</span>
+                <a class="text-dark" href="">Help</a>
+                <span class="text-muted px-2">|</span>
+                <a class="text-dark" href="">Support</a>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+            <div class="d-inline-flex align-items-center">
+                <a class="text-dark px-2" href="">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="text-dark px-2" href="">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a class="text-dark px-2" href="">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a class="text-dark px-2" href="">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a class="text-dark pl-2" href="">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center py-3 px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a href="" class="text-decoration-none">
+                <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                        class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+            </a>
+        </div>
+        <div class="col-lg-6 col-6 text-left">
+            <form action="">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for products">
+                    <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-primary">
+                                <i class="fa fa-search"></i>
+                            </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-6 text-right">
+            <a href="" class="btn border">
+                <i class="fas fa-heart text-primary"></i>
+                <span class="badge">0</span>
+            </a>
+            <a th:href="@{/cart}" class="btn border" id="cart">
+                <i class="fas fa-shopping-cart text-primary"></i>
+                <span class="badge badge-cart" th:text="${numberItems}"></span>
+            </a>
+        </div>
+    </div>
+</div>
 <!-- Topbar Start -->
 <!--<div class="container-fluid">-->
 <!--    <div class="row bg-secondary py-2 px-xl-5">-->
@@ -247,8 +309,11 @@
                     </div>
                 </form>
             </div>
+            <!--receive id-cart-->
+            <input type="hidden" id="id-cart" th:value="${idCart}">
+            <input type="hidden" id="id-product" th:value="${product.getId()}">
             <div class="d-flex align-items-center mb-4 pt-2">
-                <form th:action="@{'/api/carts/3/addProduct'}" method="post" style="display: flex">
+                <form id="addToCartForm" style="display: flex">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
                             <button class="btn btn-primary btn-minus" type="button">
@@ -262,7 +327,7 @@
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3 addToCartBtn">
+                    <button class="btn btn-primary px-3" id="addToCartBtn">
                         <i class="fa fa-shopping-cart mr-1"></i>
                         Thêm vào giỏ hàng
                     </button>
@@ -525,7 +590,58 @@
         priceProduct[i].innerText = VND.format(priceValue.toFixed(0)).replace("₫", "VNĐ"); // Use toFixed(0) to get the rounded integer value and format it
     }
 </script>
+<!--add to cart-->
+<script>
+    let idCart = document.getElementById("id-cart").value;
+    /*   const baseUrl = `${window.location.protocol}//${window.location.host}`;
+       const apiUrl = `${baseUrl}/api/carts/${idCart}/addProduct`;*/
+    document.addEventListener('DOMContentLoaded', function () {
+        const quantityInput = document.getElementById('quantityInput');
+        const btnMinus = document.querySelector('.btn-minus');
+        const btnPlus = document.querySelector('.btn-plus');
+        btnMinus.addEventListener('click', function () {
+            const currentValue = parseInt(quantityInput.value, 10);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue;
+            }
+            if (currentValue === 0) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+        btnPlus.addEventListener('click', function () {
+            quantityInput.value = parseInt(quantityInput.value, 10);
+        });
+        const addToCartForm = document.getElementById('addToCartForm');
+        addToCartForm.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+            let productId = Number(document.getElementById("id-product").value);
+            let quantity = parseInt(quantityInput.value);
+            fetch(`/api/carts/${idCart}/addProduct`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: quantity,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle response from the API
+                    // Assuming this code is inside an event handler or function for adding items to the cart
+                    console.log(data);
+                    let badgeCart = document.getElementsByClassName("badge-cart")[0]; // Get the first element with the class "badge-cart"
+                    badgeCart.innerHTML = parseInt(badgeCart.innerHTML) + 1; // Update the badge count
+                    alert("Added to cart successfully");
 
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        })
+    });
+</script>
 <!--handle star-->
 <script>
     // JavaScript code
@@ -579,8 +695,8 @@
     function updateUrlProduct(evt) {
         window.location.href = evt.target.id;
     }
-
 </script>
+
 
 </body>
 

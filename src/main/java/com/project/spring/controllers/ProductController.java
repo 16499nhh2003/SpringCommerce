@@ -1,20 +1,17 @@
 package com.project.spring.controllers;
 
+import com.project.spring.dto.CartDTO;
 import com.project.spring.dto.CartItemDTO;
 import com.project.spring.dto.CommentDTO;
 import com.project.spring.dto.PaginationProductResponse;
 import com.project.spring.exceptions.ProductNotFoundException;
-import com.project.spring.model.Category;
-import com.project.spring.model.Comment;
-import com.project.spring.model.Manufacture;
-import com.project.spring.model.Product;
-import com.project.spring.repositories.CategoryRepository;
-import com.project.spring.repositories.CommentRepository;
-import com.project.spring.repositories.ManufactureRepository;
-import com.project.spring.repositories.ProductRepository;
+import com.project.spring.model.*;
+import com.project.spring.repositories.*;
 import com.project.spring.service.CommentService;
 import com.project.spring.service.ProductService;
+import com.project.spring.service.impl.UserDetailsServiceImpl;
 import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +19,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.data.domain.Sort.Direction;
@@ -51,6 +50,16 @@ public class ProductController {
     private CommentRepository commentRepository;
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    UserDetailsServiceImpl userDetailsServiceImpl;
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    CartRepository cartRepository;
+    @Autowired
+    ModelMapper modelMapper;
 
 
     @RequestMapping(value = {"","/"},method = RequestMethod.GET)
@@ -205,6 +214,16 @@ public class ProductController {
     public String showDetail(@PathVariable("id") String productId, Model model) {
         Long id = null;
         try {
+            AppUser user = this.userRepository.getUserByUsername(userDetailsServiceImpl.getCurrentUserId());
+            Long idUser = user.getId();
+            if(idUser != null){
+                List<Cart> carts = this.cartRepository.findByUserId(idUser);
+                Cart cart = carts.get(0);
+                CartDTO cartDTO = modelMapper.map(cart,CartDTO.class);
+                List<CartItemDTO> cartItemDTOs =  cartDTO.getCartItems();
+                model.addAttribute("numberItems",cartItemDTOs.size());
+                model.addAttribute("idCart",cart.getId());
+            }
             id = Long.parseLong(productId);
             Optional<Product> product = productService.getProductById(id);
             if (product.isEmpty()) {

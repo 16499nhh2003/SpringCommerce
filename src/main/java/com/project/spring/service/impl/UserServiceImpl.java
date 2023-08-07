@@ -1,6 +1,6 @@
 package com.project.spring.service.impl;
 
-import com.project.spring.model.User;
+import com.project.spring.model.AppUser;
 import com.project.spring.repositories.UserRepository;
 import com.project.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     @Override
-    public Optional<User> findUserById(Long id) {
+    public Optional<AppUser> findUserById(Long id) {
         return this.userRepository.findById(id);
     }
 }

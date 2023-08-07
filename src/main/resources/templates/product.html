@@ -272,7 +272,7 @@
                                             20%
                                         </button>
                                     </div>
-                                    <a href="product.html">
+                                    <a th:href="@{'/products/details/' + ${data.getId()}}" >
                                         <img th:src="@{'/assets/' +${data.originalPicture}}" alt="product1"
                                              class="img-fluid hover-zoom">
                                     </a>
