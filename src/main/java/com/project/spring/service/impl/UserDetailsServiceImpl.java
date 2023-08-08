@@ -68,8 +68,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
     public String getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.getPrincipal() instanceof UserDetails) {
-            return ((UserDetails) authentication.getPrincipal()).getUsername();
+        if (authentication != null){
+            if (authentication.getPrincipal() instanceof UserDetails) {
+                return ((UserDetails) authentication.getPrincipal()).getUsername();
+            }
         }
         return null;
     }

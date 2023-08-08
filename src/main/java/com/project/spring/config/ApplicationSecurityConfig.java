@@ -29,19 +29,29 @@ public class ApplicationSecurityConfig {
                             auth.requestMatchers("/api/**").permitAll();
                             auth.requestMatchers("/user").hasAnyAuthority("user");
                             auth.requestMatchers("/admin").hasAnyAuthority("admin");
+                            auth.requestMatchers("/products/**").permitAll();
+                            auth.requestMatchers("/products/filter").permitAll();
                             auth.requestMatchers("/logout").permitAll();
+                            auth.requestMatchers("/css/**").permitAll();
+                            auth.requestMatchers("/assets/**").permitAll();
+                            auth.requestMatchers("/cart/**").permitAll();
+                            auth.requestMatchers("/").permitAll();
+                            auth.requestMatchers("/products/detail").permitAll();
                             auth.anyRequest().authenticated();
                         }
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .successHandler(authenticationSuccessHandler())
-                        .failureHandler(authenticationFailureHandler())
-                        .permitAll())
+                        /*.failureHandler(authenticationFailureHandler())*/
+                        .failureUrl("/login?error=true")
+                        .permitAll()
+                )
                 .logout(logout -> logout
-                        .deleteCookies("JSESSIONID")
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
                 .rememberMe(remmember -> remmember
@@ -53,14 +63,19 @@ public class ApplicationSecurityConfig {
         ;
         return http.build();
     }
+
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new SimpleUrlAuthenticationSuccessHandler("/products");
     }
+
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new SimpleUrlAuthenticationFailureHandler("/login?error");
+        SimpleUrlAuthenticationFailureHandler simpleUrlAuthenticationFailureHandler = new SimpleUrlAuthenticationFailureHandler();
+        simpleUrlAuthenticationFailureHandler.setDefaultFailureUrl("/login?error=true");
+        return simpleUrlAuthenticationFailureHandler;
     }
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

@@ -32,6 +32,7 @@ public class ProductSpecification {
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
+
     public static Specification<Product> hasColor(String color) {
         return (root, query, criteriaBuilder) -> {
             if (color != null) {
@@ -41,14 +42,14 @@ public class ProductSpecification {
         };
     }
 
-        public static Specification<Product> hasCategory(Category category) {
-            return (root, query, criteriaBuilder) -> {
-                if (category != null) {
-                    return criteriaBuilder.equal(root.get("category").get("id"), category.getId());
-                }
-                return null;
-            };
-        }
+    public static Specification<Product> hasCategory(Category category) {
+        return (root, query, criteriaBuilder) -> {
+            if (category != null) {
+                return criteriaBuilder.equal(root.get("category").get("id"), category.getId());
+            }
+            return null;
+        };
+    }
 
     public static Specification<Product> hasManufactureSet(Set<Manufacture> manufactureSet) {
         return (root, query, criteriaBuilder) -> {
@@ -57,5 +58,9 @@ public class ProductSpecification {
             }
             return null;
         };
+    }
+
+    public static Specification<Product> hasColor(String[] colors) {
+        return ((root, query, criteriaBuilder) -> root.get("color").in((Object[]) colors));
     }
 }

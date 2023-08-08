@@ -11,6 +11,7 @@ import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -74,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
 
     //    Filter
     @Override
-    public PaginationProductResponse filterProducts(List<Double> price, String color, Category category, Set<Manufacture> manufactureSet, Pageable pageable) {
+    public PaginationProductResponse filterProducts(List<Double> price, String color, Category category, Set<Manufacture> manufactureSet, Pageable pageable,String[] colors) {
         Specification<Product> spec = Specification.where(null);
         if (category != null) {
             spec = spec.and(ProductSpecification.hasCategory(category));
@@ -84,6 +85,9 @@ public class ProductServiceImpl implements ProductService {
         }
         if (price.size() == 2) {
             spec = spec.and(ProductSpecification.priceInRange(price.get(0), price.get(1)));
+        }
+        if (colors != null){
+            spec = spec.and(ProductSpecification.hasColor(colors));
         }
         List<Product> products = productRepository.findAll(spec, pageable).getContent();
         return PaginationProductResponse.builder()

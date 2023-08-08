@@ -62,13 +62,33 @@ public class ProductController {
     ModelMapper modelMapper;
 
 
-    @RequestMapping(value = {"","/"},method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public String index(@RequestParam(name = "currentPage", defaultValue = "1") Integer currentPage,
                         @RequestParam(name = "pageSize", defaultValue = "3") Integer pageSize,
                         @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
                         @RequestParam(name = "orderField", defaultValue = "desc") String orderField,
                         Model model) {
 
+        AppUser user = this.userRepository.getUserByUsername(userDetailsServiceImpl.getCurrentUserId());
+        if (user != null){
+            List<Cart> carts = this.cartRepository.findByUserId(user.getId());
+            if (carts.isEmpty()) {
+                Cart cart = new Cart();
+                cart.setUser(user);
+                cart.setTotal(0.0);
+                cart.setCartItems(new ArrayList<>());
+                Cart newCart = this.cartRepository.save(cart);
+                model.addAttribute("numberItems", newCart.getCartItems().size());
+                model.addAttribute("idCart", newCart.getId());
+            } else {
+                Cart cart = carts.get(0);
+                CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
+                List<CartItemDTO> cartItemDTOs = cartDTO.getCartItems();
+                model.addAttribute("numberItems", cartItemDTOs.size());
+                model.addAttribute("idCart", cart.getId());
+            }
+            model.addAttribute("isLogin",user.getName());
+        }
         Direction direction = orderField.equals("desc") ? Direction.DESC : Direction.ASC;
         Order order = new Order(direction, sortBy);
         Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by(order));
@@ -84,7 +104,6 @@ public class ProductController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("orderField", orderField);
         model.addAttribute("totalPages", products.getNumberTotalPages());
-
         return "product";
     }
 
@@ -98,6 +117,7 @@ public class ProductController {
                          @RequestParam(name = "pageSize", defaultValue = "8") Integer pageSize,
                          @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
                          @RequestParam(name = "orderField", defaultValue = "desc") String orderField,
+                         @RequestParam(name = "colors[]",required = false) String[] colors,
                          Model model
 
     ) {
@@ -159,8 +179,7 @@ public class ProductController {
             Direction direction = orderField.equals("desc") ? Direction.DESC : Direction.ASC;
             Order order = new Order(direction, sortBy);
             Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by(order));
-            PaginationProductResponse paginationProductResponse =
-                    this.productService.filterProducts(doubles, color, category, manufacture, pageable);
+            PaginationProductResponse paginationProductResponse = this.productService.filterProducts(doubles, color, category, manufacture, pageable,colors);
             model.addAttribute("data", paginationProductResponse);
             model.addAttribute("totalPages", paginationProductResponse.getNumberTotalPages());
 
@@ -172,11 +191,15 @@ public class ProductController {
         }
         model.addAttribute("man", manufactureRepository.findAll());
         model.addAttribute("category", categoryRepository.findAll());
-
+        model.addAttribute("cartItemDTO", new CartItemDTO());
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("orderField", orderField);
+
+        if(colors!= null && colors.length != 0 ){
+            model.addAttribute("colors",colors);
+        }
 
         return "product";
     }
@@ -192,7 +215,6 @@ public class ProductController {
         Order order = new Order(direction, sortBy);
         Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by(order));
         PaginationProductResponse paginationProductResponse = this.productService.searchProducts(keyword.orElse(""), pageable);
-
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("keyword", keyword);
         model.addAttribute("pageSize", pageSize);
@@ -200,12 +222,9 @@ public class ProductController {
         model.addAttribute("orderField", orderField);
         model.addAttribute("data", paginationProductResponse);
         model.addAttribute("totalPages", paginationProductResponse.getNumberTotalPages());
-
         model.addAttribute("man", manufactureRepository.findAll());
         model.addAttribute("category", categoryRepository.findAll());
-
         model.addAttribute("keyword", keyword.get());
-
         return "product";
     }
 
@@ -215,14 +234,26 @@ public class ProductController {
         Long id = null;
         try {
             AppUser user = this.userRepository.getUserByUsername(userDetailsServiceImpl.getCurrentUserId());
-            Long idUser = user.getId();
-            if(idUser != null){
+            if (user != null) {
+                Long idUser = user.getId();
                 List<Cart> carts = this.cartRepository.findByUserId(idUser);
-                Cart cart = carts.get(0);
-                CartDTO cartDTO = modelMapper.map(cart,CartDTO.class);
-                List<CartItemDTO> cartItemDTOs =  cartDTO.getCartItems();
-                model.addAttribute("numberItems",cartItemDTOs.size());
-                model.addAttribute("idCart",cart.getId());
+                if (carts.isEmpty()) {
+                    Cart cart = new Cart();
+                    cart.setUser(user);
+                    cart.setTotal(0.0);
+                    cart.setCartItems(new ArrayList<>());
+                    Cart newCart = this.cartRepository.save(cart);
+                    model.addAttribute("numberItems", newCart.getCartItems().size());
+                    model.addAttribute("idCart", newCart.getId());
+                } else {
+                    Cart cart = carts.get(0);
+                    CartDTO cartDTO = modelMapper.map(cart, CartDTO.class);
+                    List<CartItemDTO> cartItemDTOs = cartDTO.getCartItems();
+                    model.addAttribute("numberItems", cartItemDTOs.size());
+                    model.addAttribute("idCart", cart.getId());
+                    model.addAttribute("isLogin",user.getName());
+                }
+
             }
             id = Long.parseLong(productId);
             Optional<Product> product = productService.getProductById(id);
@@ -237,16 +268,16 @@ public class ProductController {
             //*Comment of product*//*
             List<Comment> comments = this.commentRepository.findCommentByProductId(id);
             //*Bind CommentDto *//*
-            CommentDTO commentDto = new CommentDTO();
-            commentDto.setProductId(id);
-            /*update view */
+
+            /* View Product */
             productService.incrementViewCount(id);
 
-            model.addAttribute("commentDto", commentDto);
-            model.addAttribute("rating", average);
+            model.addAttribute("commentDto", new CommentDTO());
+            model.addAttribute( "rating", average);
             model.addAttribute("numberOfComments", numberOfComment);
             model.addAttribute("comment", comments);
-            model.addAttribute("cartItemDTO",new CartItemDTO());
+            CartItemDTO cartItemDTO = new CartItemDTO();
+            model.addAttribute("cartItemDTO", new CartItemDTO());
             //* all product*//*
             model.addAttribute("products", this.productRepository.findAll());
 
@@ -264,16 +295,16 @@ public class ProductController {
             model.addAttribute("errorMessage", "Invalid product ID: " + productId);
             return "404";
         } catch (ProductNotFoundException e) {
-            model.addAttribute("errorMessage","Not found product ID:" + productId);
+            model.addAttribute("errorMessage", "Not found product ID:" + productId);
             return "404";
         }
     }
 
     /*Comment*/
     @PostMapping("/comments")
-    public String saveComment(@Valid @ModelAttribute("commentDto") CommentDTO commentDto, BindingResult result, RedirectAttributes redirectAttributes ) {
+    public String saveComment(@Valid @ModelAttribute("commentDto") CommentDTO commentDto, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors",result);
+            redirectAttributes.addFlashAttribute("errors", result);
             return "redirect:/products/details/" + commentDto.getProductId();
         }
         /*Convert dto -> model */

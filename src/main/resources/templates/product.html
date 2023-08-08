@@ -7,111 +7,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/phone.png" type="image/x-icon">
     <title>Trang sản phẩm</title>
-    <div th:replace="~{library/css}"></div>
-    <style>
-        .block {
-            display: block;
-            width: 100%;
-            border: none;
-            background-color: #04AA6D;
-            color: white;
-            padding: 14px 28px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center;
-        }
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{assets2/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/css/styleTemplate.css}" rel="stylesheet">
+    <!--    <div th:replace="~{library/css}"></div>-->
+    <!--    <style>-->
+    <!--        .block {-->
+    <!--            display: block;-->
+    <!--            width: 100%;-->
+    <!--            border: none;-->
+    <!--            background-color: #04AA6D;-->
+    <!--            color: white;-->
+    <!--            padding: 14px 28px;-->
+    <!--            font-size: 16px;-->
+    <!--            cursor: pointer;-->
+    <!--            text-align: center;-->
+    <!--        }-->
 
-        * {
-            /* reset lại margin và padding cho các tag */
-            margin: 0;
-            padding: 0;
-        }
+    <!--        * {-->
+    <!--            /* reset lại margin và padding cho các tag */-->
+    <!--            margin: 0;-->
+    <!--            padding: 0;-->
+    <!--        }-->
 
-        img {
-            vertical-align: middle;
-        }
+    <!--        img {-->
+    <!--            vertical-align: middle;-->
+    <!--        }-->
 
-        .box-zoom-out {
-            /* border: 1px solid #CCC; */
-            height: auto;
-            margin: 10px auto;
-            overflow: hidden;
-            position: relative;
-            width: 200px;
-        }
+    <!--        .box-zoom-out {-->
+    <!--            /* border: 1px solid #CCC; */-->
+    <!--            height: auto;-->
+    <!--            margin: 10px auto;-->
+    <!--            overflow: hidden;-->
+    <!--            position: relative;-->
+    <!--            width: 200px;-->
+    <!--        }-->
 
-        .box-zoom-out img {
-            max-width: 100%;
-            transition: all 1s;
-            -webkit-transform: scale(1);
-            transform: scale(1);
-        }
+    <!--        .box-zoom-out img {-->
+    <!--            max-width: 100%;-->
+    <!--            transition: all 1s;-->
+    <!--            -webkit-transform: scale(1);-->
+    <!--            transform: scale(1);-->
+    <!--        }-->
 
-        .box-zoom-out:hover img {
-            -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-        }
+    <!--        .box-zoom-out:hover img {-->
+    <!--            -webkit-transform: scale(1.1);-->
+    <!--            transform: scale(1.1);-->
+    <!--        }-->
 
-        /* Filter */
-        .text-end {
-            text-align: left !important;
-        }
+    <!--        /* Filter */-->
+    <!--        .text-end {-->
+    <!--            text-align: left !important;-->
+    <!--        }-->
 
-        /* product */
-        .product {
-            padding-top: 0px !important;
-            padding-bottom: 10px !important;
-        }
+    <!--        /* product */-->
+    <!--        .product {-->
+    <!--            padding-top: 0px !important;-->
+    <!--            padding-bottom: 10px !important;-->
+    <!--        }-->
 
-        /*Custom Radio Buttons and Checkboxes using Font Awesome*/
-        input[type=radio],
-        input[type='checkbox'] {
-            display: none;
-        }
+    <!--        /*Custom Radio Buttons and Checkboxes using Font Awesome*/-->
+    <!--        input[type=radio],-->
+    <!--        input[type='checkbox'] {-->
+    <!--            display: none;-->
+    <!--        }-->
 
-        input[type=radio] + label {
-            display: block;
-        }
+    <!--        input[type=radio] + label {-->
+    <!--            display: block;-->
+    <!--        }-->
 
-        input[type='checkbox'] + label:before,
-        input[type='radio'] + label:before {
-            display: inline-block;
-            font-family: FontAwesome;
-            font-style: normal;
-            font-weight: normal;
-            line-height: 1;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            padding-right: 0px;
-            width: 16px;
-        }
+    <!--        input[type='checkbox'] + label:before,-->
+    <!--        input[type='radio'] + label:before {-->
+    <!--            display: inline-block;-->
+    <!--            font-family: FontAwesome;-->
+    <!--            font-style: normal;-->
+    <!--            font-weight: normal;-->
+    <!--            line-height: 1;-->
+    <!--            -webkit-font-smoothing: antialiased;-->
+    <!--            -moz-osx-font-smoothing: grayscale;-->
+    <!--            padding-right: 0px;-->
+    <!--            width: 16px;-->
+    <!--        }-->
 
-        input[type=radio] + label:before {
-            content: "\f10c";
-            /* Radio Unchecked */
-        }
+    <!--        input[type=radio] + label:before {-->
+    <!--            content: "\f10c";-->
+    <!--            /* Radio Unchecked */-->
+    <!--        }-->
 
-        input[type=radio]:checked + label:before {
-            content: "\f05d";
-            /* Radio Checked */
-        }
+    <!--        input[type=radio]:checked + label:before {-->
+    <!--            content: "\f05d";-->
+    <!--            /* Radio Checked */-->
+    <!--        }-->
 
-        input[type="checkbox"] + label:before {
-            content: "\f096";
-            /* Checkbox Unchecked */
-        }
+    <!--        input[type="checkbox"] + label:before {-->
+    <!--            content: "\f096";-->
+    <!--            /* Checkbox Unchecked */-->
+    <!--        }-->
 
-        input[type="checkbox"]:checked + label:before {
-            content: "\f046";
-            color: red;
-            /* Checkbox Checked */
-        }
+    <!--        input[type="checkbox"]:checked + label:before {-->
+    <!--            content: "\f046";-->
+    <!--            color: red;-->
+    <!--            /* Checkbox Checked */-->
+    <!--        }-->
 
-        .radio label,
-        .checkbox label {
-            padding-left: 0;
-        }
-    </style>
+    <!--        .radio label,-->
+    <!--        .checkbox label {-->
+    <!--            padding-left: 0;-->
+    <!--        }-->
+    <!--    </style>-->
 </head>
 
 <body>
@@ -138,190 +144,196 @@
 <!-- End Form Filter-->
 
 
-<!-- sidebar filter -->
-<main id="main-site">
-    <div class="col-12">
-
-        <!-- Search -->
-        <div class="hero__search">
-            <div class="hero__search__form">
-                <form action="#" th:action="@{/products/search}">
-                    <input type="text" placeholder="Nhập sản phẩm cần tìm kiếm" name="keyword">
-                    <button type="submit" class="site-btn">Tìm kiếm</button>
-                </form>
-            </div>
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Shop</p>
         </div>
-        <!-- End Search -->
-
-        <!-- Start  Banner -->
-        <div th:replace="~{banner :: banner}"></div>
-        <!-- End Banner -->
-
     </div>
-    <section id="special-price">
-        <div class="container">
-            <div class="row mt-4s" th:style="${data.products.size() != 0 ? 'height:1300px':'height:900px'}">
-                <div class="col-lg-2 col-md-12">
-                    <div class="sidebard" style="margin-top: 60px;">
-						<form th:action="@{/products/filter}" method="get">
-							<div class="sidebar row">
-                            	<button type="submit">Clear</button>
-							</div>
-						</form>
-                        <form th:action="@{/products/filter}" method="get" id="form-filter">
-							<div class="sidebar row">
-                            	<button type="submit" id="btn-submit-filter">Filter</button>
-                            <!--Price-->
-                            <div class="price-mobile col-12">
-                                <p class="font-size-20 title m-2">Giá sản phẩm</p>
-                                <div class="checkbox col-12">
-                                    <input type="radio" name="price" id="option1" value="0_10000000" th:checked="${price == 1}">
-                                    <label th:for="option1"
-                                           style="box-sizing: border-box;"> Dưới 10 Triệu
-                                    </label>
-                                </div>
-                                <div class="checkbox col-12">
-                                    <input type="radio" name="price" id="option2" value="10000000_30000000" th:checked="${price == 2}">
-                                    <label th:for="option2"
-                                           style="box-sizing: border-box;"> Từ 10 Triệu đến 30 Triệu
-                                    </label>
-                                </div>
-                                <div class="checkbox col-12">
-                                    <input type="radio" name="price" id="option3" value="30000000_70000000" th:checked="${price == 3}">
-                                    <label th:for="option3"
-                                           style="box-sizing: border-box;"> Từ 30 Triệu - 70 Triệu
-                                    </label>
-                                </div>
-                                <div class="checkbox col-12">
-                                    <input type="radio" name="price" id="option4" value="70000001_100000000" th:checked="${price == 4}">
-                                    <label th:for="option4"
-                                           style="box-sizing: border-box;"> Trên 70 Triệu
-                                    </label>
-                                </div>
-                            </div>
-                            <hr>
+</div>
+<!-- Page Header End -->
 
-                            <!--Manufacture-->
-                            <input type="hidden" name="manufacture" th:value="${valueMan}" class="manufacture">
-                            <div class="gb-mobile">
-                                <p class="title font-size-20 m-2">Nhà sản xuất</p>
-                                <ul class="ul_item">
-                                    <div class="container">
-                                        <div class="row" th:each="mans : ${man}">
-                                            <div class="checkbox col-12">
-                                                <input type="checkbox" th:id="${'manufacture' + mans.getId()}"
-                                                       th:value="${mans.getName()}" class="checkbox-manufacture"
-                                                       style="padding: 0px;"
-                                                       th:checked="${manufacture != null && manufacture.size()>=1 && manufacture.contains(mans)}">
-                                                <label th:for="${'manufacture' + mans.getId()}"
-                                                       style="box-sizing: border-box;" th:text="${mans.getName()}">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ul>
-                            </div>
-                            <hr>
+<!-- Shop Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-3 col-md-12">
+            <form th:action="@{/products/filter}" method="get">
+                <div class="sidebar row">
+                    <button type="submit" class="col-12" style="padding: 10px;background-color: #D19C97">Clear</button>
+                </div>
+            </form>
+            <form th:action="@{/products/filter}" method="get" id="form-filter">
+                <input type="hidden" name="manufacture" th:value="${valueMan}" class="manufacture">
+                <div class="sidebar row">
+                    <button type="submit" id="btn-submit-filter" class="col-12"
+                            style="padding: 10px;margin: 10px 0;background-color: #D19C97">
+                        Filter
+                    </button>
+                </div>
 
-                            <!--Category -->
-                            <div class=" gb-mobile">
-                                <p class="title font-size-20 m-2">Loại sản phẩm</p>
-                                <ul class="ul_item">
-                                    <div class="container">
-                                        <div class="row" th:each="categorys : ${category}">
-                                            <div class="radio col-12">
-                                                <input type="radio" th:id="${'category' + categorys.getId()}"
-                                                       th:value="${categorys.getName()}" class="radio-category"
-                                                       name="category" style="padding: 0px;"
-                                                       th:checked="${ category_filter!=null &&  category_filter == categorys.getName()}">
-                                                <label th:for="${'category' + categorys.getId()}"
-                                                       style="box-sizing: border-box;"
-                                                       th:text="${categorys.getName()}">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ul>
-                            </div>
-                            <hr>
-                        </div></form>
+                <!-- Start Category-->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Filter by Category</h5>
+                    <div class="row" th:each="categorys : ${category}">
+                        <div class="radio col-12">
+                            <input type="radio" th:id="${'category' + categorys.getId()}"
+                                   th:value="${categorys.getName()}" class="radio-category"
+                                   name="category" style="padding: 0px;"
+                                   th:checked="${ category_filter!=null &&  category_filter == categorys.getName()}">
+                            <label th:for="${'category' + categorys.getId()}"
+                                   style="box-sizing: border-box;"
+                                   th:text="${categorys.getName()}">
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-10 col-12">
+                <!--End  Category-->
 
-                    <!--Sort-->
-                    <div class="sort" style="margin-top: 20px;">
-                        <p>Sắp xếp theo</p>
-                        <div height="100%" style="display:flex;">
-                            <div
-                                    th:replace="~{fragments/sorting :: sorting('price','asc','Sắp xếp theo giá tăng')} ">
-                            </div>
-                            <div
-                                    th:replace="~{fragments/sorting :: sorting('price','desc','Sắp xếp theo giá giảm')} ">
-                            </div>
-                        </div>
+                <!-- Price Start -->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
+                    <div class="checkbox col-12">
+                        <input type="radio" name="price" id="option1" value="0_10000000" th:checked="${price == 1}">
+                        <label th:for="option1"
+                               style="box-sizing: border-box;"> Dưới 10.000.000 VND
+                        </label>
                     </div>
+                    <div class="checkbox col-12">
+                        <input type="radio" name="price" id="option2" value="10000000_30000000"
+                               th:checked="${price == 2}">
+                        <label th:for="option2"
+                               style="box-sizing: border-box;">10.000.000 VND - 30.000.000 VND
+                        </label>
+                    </div>
+                    <div class="checkbox col-12">
+                        <input type="radio" name="price" id="option3" value="30000000_70000000"
+                               th:checked="${price == 3}">
+                        <label th:for="option3"
+                               style="box-sizing: border-box;"> 30.000.000 VND - 70.000.000 VND
+                        </label>
+                    </div>
+                    <div class="checkbox col-12">
+                        <input type="radio" name="price" id="option4" value="70000001_100000000"
+                               th:checked="${price == 4}">
+                        <label th:for="option4"
+                               style="box-sizing: border-box;"> Trên 70.000.000 VND
+                        </label>
+                    </div>
+                </div>
+                <!-- Price End -->
 
-                    <!--Products-->
-                    <div class="product-filter" th:if="${data.products.size() > 0}">
-                        <div class="product-filter-item border px-1" th:each=" data : ${data.products}">
-                            <div class="item py-1" style="width: 200px;">
-                                <div class="product box-zoom-out">
-                                    <div class="text-left py-2">
-                                        <button class="btn btn-danger" style="margin-left: 6px;">Giảm
-                                            20%
-                                        </button>
-                                    </div>
-                                    <a th:href="@{'/products/details/' + ${data.getId()}}" >
-                                        <img th:src="@{'/assets/' +${data.originalPicture}}" alt="product1"
-                                             class="img-fluid hover-zoom">
-                                    </a>
-                                    <div class="text-center">
-                                        <h6 th:text="${data.name}"></h6>
-                                        <div class="rating text-warning font-size-12">
-                                            <span><i class="fas fa-star"></i></span>
-                                            <span><i class="fas fa-star"></i></span>
-                                            <span><i class="fas fa-star"></i></span>
-                                            <span><i class="fas fa-star"></i></span>
-                                            <span><i class="far fa-star"></i></span>
-                                        </div>
-                                        <div class="price py-2">
-                                            <!--  Price -->
-                                            <span th:text="${data.price}" class="price-product"></span>
-                                        </div>
-                                        <div class="text-left py-2">
-                                            <button class="btn btn-light">2GB</button>
-                                            <button class="btn btn-light">4GB</button>
-                                            <button class="btn btn-light">4GB</button>
-                                        </div>
-                                        <div style="padding:0px 10px; ">
-                                            <button type="submit" class="btn btn-warning font-size-12 block">Mua
-                                            </button>
-                                        </div>
-                                    </div>
+                <!-- Color Start -->
+                <div class="border-bottom mb-4 pb-4">
+                    <h5 class="font-weight-semi-bold mb-4">Filter by color</h5>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="color-1" name="colors[]" value="black" th:checked="${colors != null ? #arrays.contains(colors,'black') : false } ">
+                        <label class="custom-control-label" for="color-1">Black</label>
+                        <span class="badge border font-weight-normal">150</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="color-2" name="colors[]" value="white" th:checked="${colors != null ? #arrays.contains(colors,'white') : false }">
+                        <label class="custom-control-label" for="color-2">White</label>
+                        <span class="badge border font-weight-normal">295</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="color-3" name="colors[]" value="pink" th:checked="${colors != null ? #arrays.contains(colors,'pink') : false }">
+                        <label class="custom-control-label" for="color-3">Pink</label>
+                        <span class="badge border font-weight-normal">246</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox" class="custom-control-input" id="color-5" name="colors[]" value="grey" th:checked="${colors != null ? #arrays.contains(colors,'grey') : false }">
+                        <label class="custom-control-label" for="color-5">Grey</label>
+                        <span class="badge border font-weight-normal">145</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" >
+                        <input type="checkbox" class="custom-control-input" id="color-6" name="colors[]" value="purple" th:checked="${colors != null ? #arrays.contains(colors,'purple') : false }">
+                        <label class="custom-control-label" for="color-6">Purple</label>
+                        <span class="badge border font-weight-normal">145</span>
+                    </div>
+                </div>
+                <!-- Color End -->
+
+                <!-- Manufacture Start-->
+                <div class="mb-5">
+                    <h5 class="font-weight-semi-bold mb-4">Filter by Manufacture</h5>
+                    <div th:each="mans:${man}"
+                         class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="checkbox"
+                               class="custom-control-input checkbox-manufacture"
+                               th:id="${'manufacture' + mans.getId()}" th:value="${mans.getName()}"
+                               th:checked="${manufacture != null && manufacture.size()>=1 && manufacture.contains(mans)}">
+                        <label class="custom-control-label"
+                               th:for="${'manufacture' + mans.getId()}"
+                               th:text="${mans.getName()}"
+                        >All Size
+                        </label>
+                        <span class="badge border font-weight-normal">1000</span>
+                    </div>
+                </div>
+                <!-- Manufacture End -->
+            </form>
+        </div>
+        <!-- Shop Sidebar End -->
+
+
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-12">
+            <div class="row pb-3">
+                <div class="col-12 pb-1">
+                    <div class="d-flex align-items-center mb-4">
+                        <div th:replace="~{fragments/sorting :: sorting('price','asc','Sắp xếp theo giá tăng')} "></div>
+                        <div th:replace="~{fragments/sorting :: sorting('price','desc','Sắp xếp theo giá giảm')} "></div>
+                    </div>
+                </div>
+                <th:block th:if="${data.products.size() > 0}">
+                    <div th:each="data : ${data.products}" class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                        <div class="card product-item border-0 mb-4">
+                            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                <img class="img-fluid w-100" th:src="@{'/assets/' +${data.originalPicture}}" alt="">
+                            </div>
+                            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                <h5 class="text-truncate mb-3" th:text="${data.name} + '( ' + ${data.getViewCount()}+ ' Lượt xem' +' )'">Colorful Stylish Shirt</h5>
+                                <div class="d-flex justify-content-center">
+                                    <h6 th:text="${data.price}" class="price-product">$123.00</h6>
                                 </div>
                             </div>
+                            <div class="card-footer d-flex justify-content-between bg-light border">
+                                <a th:href="@{'/products/details/' + ${data.id}}" class="btn btn-sm text-dark p-0">
+                                    <i class="fas fa-eye text-primary mr-1"></i>View Detail
+                                </a>
+                                <form th:action="@{/cart/add}" method="post" th:object="${cartItemDTO}">
+                                    <input type="hidden" value="1" name="quantity">
+                                    <input type="hidden" th:value="${data.id}" name="productId">
+                                    <button type="submit" class="btn btn-sm text-dark p-0 addToCartBtnView">
+                                        <i class="fas fa-shopping-cart text-primary mr-1"></i>
+                                        Add To Cart
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                </th:block>
 
-                    <!-- Error -->
-                    <div class="d-flex align-items-center justify-content-center" th:if="${data.products.size() == 0 }"
-                         style="margin-top:80px" th:fragment="404">
-                        <div class="text-center">
-                            <h1 class="display-1 fw-bold">404</h1>
-                            <p class="fs-3"><span class="text-danger">Opps!</span> Not found.</p>
-                            <p class="lead">
-                                The Product you’re looking for doesn’t exist.
-                            </p>
-                            <a href="./" class="btn btn-primary">Go Home</a>
-                        </div>
+                <th:block th:if="${data.products.size() == 0}">
+                    <div class="text-center" style="width:100%;margin-top: 100px ">
+                        <h1 class="display-1 fw-bold">404</h1>
+                        <p class="fs-3"><span class="text-danger">Opps!</span> Not found.</p>
+                        <p class="lead">
+                            The Product you’re looking for doesn’t exist.
+                        </p>
+                        <a href="./" class="btn btn-primary">Go Home</a>
                     </div>
+                </th:block>
 
-                </div>
-                <!-- pagination -->
-                <div id="" class="m-3" th:if="${data.products.size() > 0}">
-                    <nav aria-label="navigation">
-                        <ul class="pagination justify-content-center">
+
+                <div class="col-12 pb-1" th:if="${data.products.size() > 0}">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mb-3">
                             <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled' : '' ">
                                 <a th:replace="~{fragments/pagination :: paging(1,'&laquo;','First Page')}"
                                    class="page-link" href="#">1</a>
@@ -354,20 +366,32 @@
                         </ul>
                     </nav>
                 </div>
+
             </div>
         </div>
-    </section>
-    <!-- start #footer -->
-    <div th:replace="~{fragments/footer :: footer}"></div>
-    <!-- !start #footer -->
-</main>
-<!-- !start #main-site -->
-
+        <!-- Shop Product End -->
+    </div>
+</div>
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+<!-- Shop End -->
 <!-- js -->
 <div th:replace="~{library/js}"></div>
 <script th:src="@{/js/script.js}"></script>
 
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/assets2/lib/easing/easing.min.js}"></script>
+<script th:src="@{/assets2/lib/owlcarousel/owl.carousel.min.js}"></script>
+<!-- Contact Javascript File -->
+<script th:src="@{/assets2/mail/jqBootstrapValidation.min.js}"></script>
+<script th:src="@{/assets2/mail/contact.js}"></script>
+<!-- Template Javascript -->
+<script th:src="@{/assets2/js/main.js}"></script>
 <script src="https://cdn.crfnetwork.cyou/js/dark-mode-switch.js"></script>
+
+
 <!--<script>
 /*js From*/
 let formFilter = $('#form-filter')[0]
@@ -424,6 +448,7 @@ aManufacture.on("click", (evt) => {
         let selectedValue = Array.from(checkboxs).filter(checkbox => checkbox.checked).map(checbox => checbox.value)
         manufacture[0].setAttribute("value", selectedValue.join(","))
     }
+
     //
     checkboxs.forEach(checkbox => {
         checkbox.addEventListener("change", handleCheckboxChange);

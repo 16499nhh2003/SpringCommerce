@@ -12,13 +12,13 @@ public class HomeController {
         return "home";
     }*/
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String login(@RequestParam(name = "logout", required = false) String logout, Model model) {
         if (logout != null) {
             model.addAttribute("logoutMessage", "You have been successfully logged out.");
         }
         return "login";
-    }
+    }*/
 
     /*@GetMapping("/user")
     public String getUser() {

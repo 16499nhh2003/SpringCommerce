@@ -31,7 +31,7 @@ public interface ProductService {
     boolean deleteProductById(Long id);
 
     //    FILTER
-    PaginationProductResponse filterProducts(List<Double> price, String color, Category category, Set<Manufacture> manufactureSet, Pageable pageable);
+    PaginationProductResponse filterProducts(List<Double> price, String color, Category category, Set<Manufacture> manufactureSet, Pageable pageable,String[] colors);
     //    Search
     PaginationProductResponse searchProducts(String keyword, Pageable pageable);
 
